@@ -13,7 +13,13 @@ export type ThemeInputs = {
   font: string;
   typeRatio: number; // each text size = the previous one × ratio
   baseSize: number; // text-base in px
+  /** Focus ring color: the solid brand color (default), the brand text color, or the main text color. */
+  focusColor?: FocusColor;
+  /** Moves the three border colors toward the text color (0 = default, 0.25 = much stronger). */
+  borderContrast?: number;
 };
+
+export type FocusColor = "brand" | "brand-text" | "text";
 
 type Mode = { scales: Record<string, string[]>; semantic: Record<string, string> };
 export type ThemeJson = {
@@ -111,14 +117,18 @@ function buildMode(s: ThemeInputs, mode: ModeName): Mode {
   const ink = fit(0.2, Math.min(0.04, s.chroma * 0.3), s.hue);
   // Label color on a solid fill: white or near-black, whichever contrasts more.
   const onFor = (solid: Color) => (contrast(white, solid) >= contrast(ink, solid) ? white : ink);
+  // Borders: darker in light mode, lighter in dark mode, by borderContrast.
+  const shift = (s.borderContrast ?? 0) * (mode === "light" ? -1 : 1);
+  const border = (i: number) => (shift ? fit(n(i).L + shift, n(i).C, n(i).H) : n(i));
+  const focus = { brand: b(8), "brand-text": b(10), text: n(11) }[s.focusColor ?? "brand"];
   const sem: Record<string, Color> = {
     bg: mode === "light" ? n(1) : n(0),
     surface: mode === "light" ? white : n(1),
     control: n(2),
     "control-hover": n(3),
-    "border-subtle": n(5),
-    border: n(6),
-    "border-strong": n(7),
+    "border-subtle": border(5),
+    border: border(6),
+    "border-strong": border(7),
     text: n(11),
     "text-muted": n(10),
     accent: b(8),
@@ -126,7 +136,7 @@ function buildMode(s: ThemeInputs, mode: ModeName): Mode {
     "accent-subtle": b(2),
     "accent-text": b(10),
     "on-accent": onFor(b(8)),
-    focus: b(8),
+    focus,
     danger: sc.danger[8]!,
     "on-danger": onFor(sc.danger[8]!),
     "danger-subtle": sc.danger[2]!,

@@ -4,13 +4,13 @@
 :root {
   --ds-bg: oklch(98.2% 0.011 308);
   --ds-surface: oklch(100.0% 0.000 0);
-  --ds-control: oklch(96.2% 0.023 308);
-  --ds-control-hover: oklch(93.8% 0.034 308);
-  --ds-border-subtle: oklch(87.6% 0.040 308);
-  --ds-border: oklch(82.6% 0.043 308);
-  --ds-border-strong: oklch(75.2% 0.046 308);
-  --ds-text: oklch(25.5% 0.040 308);
-  --ds-text-muted: oklch(48.0% 0.040 308);
+  --ds-control: oklch(96.2% 0.015 308);
+  --ds-control-hover: oklch(93.8% 0.017 308);
+  --ds-border-subtle: oklch(87.6% 0.020 308);
+  --ds-border: oklch(82.6% 0.022 308);
+  --ds-border-strong: oklch(75.2% 0.023 308);
+  --ds-text: oklch(25.5% 0.020 308);
+  --ds-text-muted: oklch(48.0% 0.020 308);
   --ds-accent: oklch(53.0% 0.250 308);
   --ds-accent-hover: oklch(48.5% 0.233 308);
   --ds-accent-subtle: oklch(96.2% 0.023 308);
@@ -32,15 +32,15 @@
 /* Dark mode: add class="dark" (or data-theme="dark") on <html> or any container. */
 .dark,
 [data-theme="dark"] {
-  --ds-bg: oklch(16.5% 0.024 308);
-  --ds-surface: oklch(19.8% 0.027 308);
-  --ds-control: oklch(24.2% 0.030 308);
-  --ds-control-hover: oklch(27.8% 0.034 308);
-  --ds-border-subtle: oklch(35.6% 0.040 308);
-  --ds-border: oklch(41.0% 0.043 308);
-  --ds-border-strong: oklch(48.8% 0.046 308);
-  --ds-text: oklch(94.5% 0.032 308);
-  --ds-text-muted: oklch(76.0% 0.040 308);
+  --ds-bg: oklch(16.5% 0.012 308);
+  --ds-surface: oklch(19.8% 0.014 308);
+  --ds-control: oklch(24.2% 0.015 308);
+  --ds-control-hover: oklch(27.8% 0.017 308);
+  --ds-border-subtle: oklch(35.6% 0.020 308);
+  --ds-border: oklch(41.0% 0.022 308);
+  --ds-border-strong: oklch(48.8% 0.023 308);
+  --ds-text: oklch(94.5% 0.020 308);
+  --ds-text-muted: oklch(76.0% 0.020 308);
   --ds-accent: oklch(53.0% 0.250 308);
   --ds-accent-hover: oklch(57.5% 0.250 308);
   --ds-accent-subtle: oklch(24.2% 0.068 308);
@@ -108,9 +108,9 @@
   --radius-lg: 6px;
 
   --font-sans: "Montserrat Variable", "Montserrat", ui-sans-serif, system-ui, sans-serif;
-  --text-sm: 0.7rem;
-  --text-base: 0.875rem;
-  --text-lg: 1.0938rem;
-  --text-xl: 1.3687rem;
-  --text-2xl: 1.7063rem;
+  --text-sm: 0.75rem;
+  --text-base: 0.9375rem;
+  --text-lg: 1.175rem;
+  --text-xl: 1.4625rem;
+  --text-2xl: 1.8313rem;
 }

@@ -49,10 +49,13 @@ const CHECKS = [
   ["Input border (low on purpose)", "border", "surface", 3],
 ] as const;
 
+const base = current.inputs as ThemeInputs;
+const defaults: Partial<ThemeInputs> = { focusColor: "brand", borderContrast: 0 };
+
 function changes(inputs: ThemeInputs) {
   return (Object.keys(inputs) as (keyof ThemeInputs)[])
-    .filter((k) => inputs[k] !== current.inputs[k])
-    .map((k) => `${k}: ${current.inputs[k]} → ${inputs[k]}`);
+    .filter((k) => inputs[k] !== (base[k] ?? defaults[k]))
+    .map((k) => `${k}: ${base[k] ?? defaults[k]} → ${inputs[k]}`);
 }
 
 function Panel({ theme, mode }: { theme: ThemeJson; mode: "light" | "dark" }) {
@@ -150,7 +153,7 @@ const meta = {
     a11y: { test: "todo" },
     controls: { expanded: true, sort: "none" },
   },
-  args: { ...current.inputs },
+  args: { focusColor: "brand", borderContrast: 0, ...(current.inputs as ThemeInputs) },
   argTypes: {
     mode: { table: { disable: true } },
     hue: { control: { type: "range", min: 0, max: 360, step: 1 }, description: "Brand color around the color wheel: 25 red, 75 amber, 150 green, 255 blue, 308 violet." },
@@ -169,6 +172,12 @@ const meta = {
       options: [1.125, 1.2, 1.25, 1.333],
       description: "Each text size is the previous one × this ratio.",
     },
+    focusColor: {
+      control: { type: "radio", labels: { brand: "brand (solid)", "brand-text": "brand text (stronger in dark)", text: "text color (monochrome)" } },
+      options: ["brand", "brand-text", "text"],
+      description: "Color of the keyboard focus ring. Press Tab on the dashboard to see it.",
+    },
+    borderContrast: { control: { type: "range", min: 0, max: 0.25, step: 0.01 }, description: "Moves borders (inputs, cards, dividers) toward the text color. 0 is the default; input borders reach 3:1 at about 0.10 in dark mode and 0.16 in light mode." },
     baseSize: { control: { type: "range", min: 12, max: 18, step: 0.5 }, description: "Body text size, in px." },
   },
   render: (args, { globals }) => <ThemePlayground {...args} mode={globals.theme === "dark" ? "dark" : "light"} />,
