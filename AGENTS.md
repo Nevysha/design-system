@@ -14,6 +14,7 @@ import { Button } from "@nevysha/ui";
 
 - Use the components before writing your own markup. Check Storybook (`pnpm dev`, or the MCP server below) for what exists.
 - Dark mode: put `class="dark"` (or `data-theme="dark"`) on `<html>`.
+- App runs Tailwind v4 itself? In its CSS, `@import "tailwindcss";` then `@import "@nevysha/ui/theme.css";` instead of `styles.css`: the app's own classes get the same tokens.
 - Need a token value in JS (charts, canvas)? `import { colors, cssVar } from "@nevysha/ui/tokens"`.
 
 ### Missing something or found a bug?
@@ -38,7 +39,7 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md): when to suggest a change (issue) and wh
 - Stack: React 19, TypeScript (strict), Tailwind v4, Radix (`radix-ui`), class-variance-authority, Vite (library mode), Vitest + Testing Library + axe, Storybook 10. Package manager: **pnpm**.
 - `pnpm check`: typecheck + lint + tests. Run it before every commit.
 - `pnpm dev`: Storybook on http://localhost:6006 (MCP endpoint for agents: http://localhost:6006/mcp).
-- `pnpm build`: library to `dist/`. `pnpm release patch|minor|major`: bump, then publish a built version to the `release` branch + tag. `pnpm tokens`: regenerate `src/tokens/theme.css` from `src/tokens/theme.json`.
+- `pnpm build`: library to `dist/`. `pnpm release patch|minor|major`: bump, then publish a built version to the `release` branch + tag. `pnpm tokens`: regenerate `src/tokens/theme.css` from `src/tokens/theme.json`. `src/theme.css` is the Tailwind entry (tokens + dark variant + base) shipped as `@nevysha/ui/theme.css`; `src/styles.css` is Tailwind + that entry, compiled.
 - Tokens: `src/tokens/theme.json` is the source of truth (exported from the Theme Lab in `playground/`). `theme.css` is generated: never edit it by hand.
 
 ### Adding a component

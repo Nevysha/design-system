@@ -23,6 +23,15 @@ import { Toaster, TooltipProvider } from "@nevysha/ui";
 
 Dark mode: `class="dark"` (or `data-theme="dark"`) on `<html>`.
 
+**If the app runs Tailwind v4 itself** (to write its own layout classes like `gap-6` or `text-text-muted`), import the theme instead of `styles.css`, in the app's CSS entry:
+
+```css
+@import "tailwindcss";
+@import "@nevysha/ui/theme.css"; /* tokens, dark variant, base styles; scans the components too */
+```
+
+Without Tailwind in the app, only the classes the components themselves use exist, so write app layout with components or plain CSS on the `--ds-*` variables.
+
 ## Rules
 
 1. **Use a component before writing markup.** Catalog below. If nothing fits, compose existing ones; only then write new markup, styled with tokens.
