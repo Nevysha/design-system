@@ -16,6 +16,10 @@ import { Button } from "@nevysha/ui";
 - Dark mode: put `class="dark"` (or `data-theme="dark"`) on `<html>`.
 - Need a token value in JS (charts, canvas)? `import { colors, cssVar } from "@nevysha/ui/tokens"`.
 
+### Missing something or found a bug?
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md): when to suggest a change (issue) and when to implement it (pull request), and how.
+
 ## Styling rules (enforced by ESLint)
 
 - **Only semantic tokens.** The default Tailwind palette is removed: `bg-blue-500` does not exist.
