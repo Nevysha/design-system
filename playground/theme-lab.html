@@ -1,0 +1,559 @@
+<title>Theme Lab</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: sticky control rail on the left, live light+dark previews on the right, then scales, contrast and export below. */
+:root {
+  --ink: oklch(0.22 0.015 260);
+  --ink-soft: oklch(0.45 0.015 260);
+  --paper: oklch(0.985 0.003 260);
+  --panel: oklch(1 0 0);
+  --line: oklch(0.9 0.006 260);
+  --mark: oklch(0.5 0.17 265);
+  --mark-ink: oklch(1 0 0);
+  --good: oklch(0.52 0.14 150);
+  --bad: oklch(0.55 0.19 25);
+  --font-ui: "Figtree", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: oklch(0.93 0.006 260); --ink-soft: oklch(0.7 0.012 260);
+    --paper: oklch(0.17 0.01 260); --panel: oklch(0.21 0.012 260);
+    --line: oklch(0.3 0.012 260); --mark: oklch(0.72 0.14 265); --mark-ink: oklch(0.18 0.02 265);
+    --good: oklch(0.75 0.15 150); --bad: oklch(0.72 0.16 25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ink: oklch(0.93 0.006 260); --ink-soft: oklch(0.7 0.012 260);
+  --paper: oklch(0.17 0.01 260); --panel: oklch(0.21 0.012 260);
+  --line: oklch(0.3 0.012 260); --mark: oklch(0.72 0.14 265); --mark-ink: oklch(0.18 0.02 265);
+  --good: oklch(0.75 0.15 150); --bad: oklch(0.72 0.16 25);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font: 15px/1.5 var(--font-ui); }
+.wrap { max-width: 1440px; margin: 0 auto; padding-block: 24px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-bottom: 20px; }
+h1 { font-size: 26px; line-height: 1.2; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+.lede { margin: 4px 0 0; color: var(--ink-soft); max-width: 70ch; }
+h2 { font-size: 17px; margin: 0 0 4px; }
+.sub { color: var(--ink-soft); margin: 0 0 14px; font-size: 14px; max-width: 75ch; }
+.layout { display: grid; grid-template-columns: 330px minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+.rail { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 16px; max-height: calc(100vh - 24px); overflow-y: auto; }
+@media (max-width: 900px) { .rail { position: static; max-height: none; } }
+.presets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.preset { font: inherit; font-size: 13px; text-align: left; padding: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 8px; cursor: pointer; display: grid; gap: 6px; }
+.preset[aria-pressed="true"] { border-color: var(--mark); box-shadow: 0 0 0 1px var(--mark); }
+.preset b { font-weight: 600; }
+.preset span { color: var(--ink-soft); font-size: 12px; line-height: 1.3; }
+.preset .dots { display: flex; gap: 3px; }
+.preset .dots i { width: 14px; height: 14px; border-radius: 50%; display: block; border: 1px solid var(--line); }
+.ctl { display: grid; gap: 4px; }
+.ctl label, .grouplabel { display: flex; justify-content: space-between; align-items: baseline; font-weight: 600; font-size: 13px; }
+.ctl output { font: 12px var(--font-mono); color: var(--ink-soft); font-weight: 400; }
+.ctl small { color: var(--ink-soft); font-size: 12px; line-height: 1.35; }
+.ctl input[type=range] { width: 100%; accent-color: var(--mark); }
+.ctl select { font: inherit; padding: 6px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); }
+#hue { appearance: none; height: 10px; border-radius: 5px; background: linear-gradient(90deg, oklch(0.7 0.15 0), oklch(0.7 0.15 60), oklch(0.7 0.15 120), oklch(0.7 0.15 180), oklch(0.7 0.15 240), oklch(0.7 0.15 300), oklch(0.7 0.15 360)); }
+#hue::-webkit-slider-thumb { appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--panel); border: 2px solid var(--ink); }
+#hue::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--panel); border: 2px solid var(--ink); }
+hr.sep { border: 0; border-top: 1px solid var(--line); margin: 0; }
+.btn { font: inherit; font-size: 13px; font-weight: 600; padding: 7px 12px; border-radius: 7px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; }
+.btn.primary { background: var(--mark); color: var(--mark-ink); border-color: transparent; }
+.btn:focus-visible, .preset:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; }
+.main { display: grid; gap: 28px; min-width: 0; }
+.previews { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1180px) { .previews { grid-template-columns: minmax(0, 1fr); } }
+.pv-label { font: 500 12px var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); margin-bottom: 6px; }
+section.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px; min-width: 0; }
+
+/* ---------- Preview: everything below reads ONLY the generated theme variables ---------- */
+.pv { background: var(--bg); color: var(--text); font-family: var(--font); font-size: var(--fs-base); line-height: 1.5;
+  border-radius: 10px; padding: var(--s6); display: grid; gap: var(--s5); border: 1px solid var(--border-subtle); min-width: 0; }
+.pv * { font-family: inherit; }
+.pv h3 { font-size: var(--fs-2xl); line-height: 1.2; margin: 0; letter-spacing: -0.015em; font-weight: 700; text-wrap: balance; }
+.pv h4 { font-size: var(--fs-lg); line-height: 1.3; margin: 0; font-weight: 600; }
+.pv p { margin: 0; }
+.pv .muted { color: var(--text-muted); font-size: var(--fs-sm); }
+.pv .row { display: flex; flex-wrap: wrap; gap: var(--s3); align-items: center; }
+.pv .surface { background: var(--surface); border: 1px solid var(--border-subtle); border-radius: var(--r-lg); padding: var(--s5); display: grid; gap: var(--s4); box-shadow: var(--shadow); min-width: 0; }
+.pv .b { font-size: var(--fs-base); font-weight: 600; border-radius: var(--r-md); padding: var(--s2) var(--s4); border: 1px solid transparent; cursor: pointer; line-height: 1.4; }
+.pv .b-primary { background: var(--accent); color: var(--on-accent); }
+.pv .b-primary:hover { background: var(--accent-hover); }
+.pv .b-secondary { background: var(--control); color: var(--text); border-color: var(--border); }
+.pv .b-secondary:hover { background: var(--control-hover); }
+.pv .b-ghost { background: transparent; color: var(--accent-text); }
+.pv .b-ghost:hover { background: var(--accent-subtle); }
+.pv .b-danger { background: var(--danger); color: var(--on-danger); }
+.pv .b:focus-visible, .pv input:focus-visible, .pv .sw:focus-visible, .pv .tab:focus-visible, .pv select:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.pv .field { display: grid; gap: var(--s1); min-width: 0; }
+.pv .field label { font-weight: 500; font-size: var(--fs-sm); }
+.pv .input { font-size: var(--fs-base); padding: var(--s2) var(--s3); border-radius: var(--r-md); border: 1px solid var(--border); background: var(--surface); color: var(--text); width: 100%; }
+.pv .input:hover { border-color: var(--border-strong); }
+.pv .input::placeholder { color: var(--text-muted); opacity: 0.8; }
+.pv .input.err { border-color: var(--danger); }
+.pv .help { font-size: var(--fs-sm); color: var(--text-muted); }
+.pv .help.err { color: var(--danger-text); }
+.pv .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--s4); }
+.pv .badge { display: inline-flex; align-items: center; gap: var(--s1); font-size: var(--fs-sm); font-weight: 600; padding: 2px var(--s2); border-radius: var(--r-sm); line-height: 1.5; }
+.pv .badge.accent { background: var(--accent-subtle); color: var(--accent-text); }
+.pv .badge.ok { background: var(--success-subtle); color: var(--success-text); }
+.pv .badge.warn { background: var(--warning-subtle); color: var(--warning-text); }
+.pv .badge.bad { background: var(--danger-subtle); color: var(--danger-text); }
+.pv .badge.neutral { background: var(--control); color: var(--text-muted); }
+.pv .check { display: flex; align-items: center; gap: var(--s2); font-size: var(--fs-base); }
+.pv .check input { width: 18px; height: 18px; accent-color: var(--accent); margin: 0; }
+.pv .sw { width: 40px; height: 22px; border-radius: 999px; background: var(--border); border: 0; position: relative; cursor: pointer; padding: 0; flex: none; }
+.pv .sw::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); transition: transform .15s; }
+.pv .sw[aria-checked="true"] { background: var(--accent); }
+.pv .sw[aria-checked="true"]::after { transform: translateX(18px); }
+.pv .tabs { display: flex; gap: var(--s1); border-bottom: 1px solid var(--border-subtle); }
+.pv .tab { background: none; border: 0; padding: var(--s2) var(--s3); color: var(--text-muted); font-size: var(--fs-base); font-weight: 500; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.pv .tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); }
+.pv .alert { display: grid; gap: 2px; padding: var(--s3) var(--s4); border-radius: var(--r-md); background: var(--warning-subtle); border: 1px solid var(--warning-border); color: var(--text); }
+.pv .alert b { color: var(--warning-text); }
+.pv .dialog { background: var(--surface); border-radius: var(--r-lg); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-lg); padding: var(--s5); display: grid; gap: var(--s3); }
+.pv .dialog .row { justify-content: flex-end; }
+.pv .stat { font-size: var(--fs-xl); font-weight: 700; font-variant-numeric: tabular-nums; }
+.pv .listrow { display: flex; justify-content: space-between; align-items: center; gap: var(--s3); padding: var(--s2) 0; border-bottom: 1px solid var(--border-subtle); }
+.pv .listrow:last-child { border-bottom: 0; }
+
+/* ---------- Scales ---------- */
+.legend { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 3px; font: 11px var(--font-mono); color: var(--ink-soft); margin-bottom: 6px; text-align: center; }
+.legend .grp { grid-column: span var(--n); border-top: 2px solid var(--line); padding-top: 3px; }
+.scale-block { overflow-x: auto; }
+.scale-row { display: grid; grid-template-columns: 74px repeat(12, minmax(26px, 1fr)); gap: 3px; align-items: center; margin-bottom: 3px; min-width: 420px; }
+.scale-row .nm { font: 12px var(--font-mono); color: var(--ink-soft); }
+.scale-row .cell { height: 30px; border-radius: 4px; font: 10px var(--font-mono); display: grid; place-items: center; }
+.scale-head { display: grid; grid-template-columns: 74px repeat(12, minmax(26px, 1fr)); gap: 3px; font: 11px var(--font-mono); color: var(--ink-soft); text-align: center; min-width: 420px; }
+.modes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 1100px) { .modes { grid-template-columns: minmax(0, 1fr); } }
+.modelabel { font-weight: 600; font-size: 13px; margin: 0 0 6px; }
+
+/* ---------- Contrast ---------- */
+.ctable { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 520px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); font-weight: 600; }
+td.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.chip { display: inline-block; font: 600 11px var(--font-mono); padding: 1px 6px; border-radius: 4px; margin-left: 6px; }
+.chip.ok { color: var(--good); border: 1px solid var(--good); }
+.chip.no { color: var(--bad); border: 1px solid var(--bad); }
+.pair { display: inline-flex; width: 34px; height: 22px; border-radius: 4px; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; margin-right: 8px; border: 1px solid var(--line); vertical-align: middle; }
+
+/* ---------- Export ---------- */
+textarea#out { width: 100%; min-height: 220px; font: 12px/1.5 var(--font-mono); background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px; resize: vertical; }
+.exrow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+#copied { font-size: 13px; color: var(--good); }
+.learn { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+.learn div { border-left: 2px solid var(--line); padding-left: 12px; }
+.learn b { display: block; font-size: 14px; margin-bottom: 2px; }
+.learn p { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
+@media (prefers-reduced-motion: reduce) { .pv .sw::after { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Theme Lab</h1>
+      <p class="lede">Pick a starting theme, then tune it. Every component on the right reads only from the tokens these controls generate, in light and dark at once. When it feels right, copy the export and paste it to Claude.</p>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="rail" aria-label="Theme controls">
+      <div class="ctl">
+        <span class="grouplabel">Starting point</span>
+        <div class="presets" id="presets"></div>
+      </div>
+      <hr class="sep">
+      <div class="ctl">
+        <label for="hue">Brand hue <output id="o-hue"></output></label>
+        <input type="range" id="hue" min="0" max="360" step="1">
+        <small>The color family of your brand, as an angle on the color wheel: 25 red, 70 amber, 150 green, 250 blue, 300 violet.</small>
+      </div>
+      <div class="ctl">
+        <label for="chroma">Brand intensity <output id="o-chroma"></output></label>
+        <input type="range" id="chroma" min="0.02" max="0.26" step="0.005">
+        <small>How saturated the brand color is. Low feels calm and corporate, high feels loud and playful.</small>
+      </div>
+      <div class="ctl">
+        <label for="light9">Brand lightness <output id="o-light9"></output></label>
+        <input type="range" id="light9" min="0.42" max="0.86" step="0.01">
+        <small>Lightness of the solid brand color (buttons). Above about 0.7 the text on it switches to dark.</small>
+      </div>
+      <div class="ctl">
+        <label for="tint">Neutral tint <output id="o-tint"></output></label>
+        <input type="range" id="tint" min="0" max="0.04" step="0.002">
+        <small>How much of the brand hue goes into the greys. 0 is pure grey; a little tint makes the palette feel chosen.</small>
+      </div>
+      <hr class="sep">
+      <div class="ctl">
+        <label for="radius">Corner radius <output id="o-radius"></output></label>
+        <input type="range" id="radius" min="0" max="20" step="1">
+        <small>0 to 4px reads serious and technical, 6 to 10px friendly, 12px and up soft and playful.</small>
+      </div>
+      <div class="ctl">
+        <label for="density">Spacing density <output id="o-density"></output></label>
+        <input type="range" id="density" min="0.75" max="1.25" step="0.125">
+        <small>Multiplies the 4px spacing grid. Compact suits data-heavy tools, spacious suits content and marketing.</small>
+      </div>
+      <hr class="sep">
+      <div class="ctl">
+        <label for="font">Typeface</label>
+        <select id="font">
+          <option>IBM Plex Sans</option><option>Inter</option><option>Figtree</option><option>DM Sans</option>
+          <option>Manrope</option><option>Nunito</option><option>Bricolage Grotesque</option>
+        </select>
+        <small>One family for everything keeps it simple. Plex and Inter are neutral, Nunito is round, Bricolage has character.</small>
+      </div>
+      <div class="ctl">
+        <label for="ratio">Type scale <output id="o-ratio"></output></label>
+        <select id="ratio">
+          <option value="1.125">1.125, subtle</option><option value="1.2">1.2, balanced</option>
+          <option value="1.25">1.25, clear</option><option value="1.333">1.333, dramatic</option>
+        </select>
+        <small>Each heading size is the previous one times this ratio. Bigger ratio, stronger hierarchy.</small>
+      </div>
+      <div class="ctl">
+        <label for="base">Base text size <output id="o-base"></output></label>
+        <input type="range" id="base" min="14" max="18" step="1">
+        <small>Body text size. 16px is the web standard; 14 to 15px for dense apps.</small>
+      </div>
+    </aside>
+
+    <div class="main">
+      <div class="previews">
+        <div><div class="pv-label">Light</div><div class="pv" id="pv-light"></div></div>
+        <div><div class="pv-label">Dark</div><div class="pv" id="pv-dark"></div></div>
+      </div>
+
+      <section class="card">
+        <h2>Contrast check</h2>
+        <p class="sub">WCAG AA asks for 4.5:1 for normal text and 3:1 for large text and UI shapes like borders of inputs and focus rings. Fails here mean some people won't be able to read it.</p>
+        <div class="ctable"><table id="contrast"></table></div>
+      </section>
+
+      <section class="card">
+        <h2>Generated color scales</h2>
+        <p class="sub">Each color gets 12 steps, and each step has one job. Components never use a step number directly; they use a semantic name (like <code>text-muted</code>) that points to a step, and dark mode just points the same names to the dark scale.</p>
+        <div class="modes">
+          <div class="scale-block"><p class="modelabel">Light</p><div id="sc-light"></div></div>
+          <div class="scale-block"><p class="modelabel">Dark</p><div id="sc-dark"></div></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Export</h2>
+        <p class="sub">Copy this and paste it to Claude in the chat. It becomes the <code>tokens</code> package of your design system.</p>
+        <div class="exrow">
+          <button class="btn primary" id="copy-json" type="button">Copy JSON</button>
+          <button class="btn" id="copy-css" type="button">Copy CSS variables</button>
+          <button class="btn" id="reset" type="button">Reset to preset</button>
+          <span id="copied" role="status"></span>
+        </div>
+        <textarea id="out" readonly aria-label="Exported tokens"></textarea>
+      </section>
+
+      <section class="card">
+        <h2>What you're deciding</h2>
+        <div class="learn">
+          <div><b>Tokens</b><p>Named design decisions (<code>accent</code>, <code>space-4</code>, <code>radius-md</code>). Change a token and every component follows, which is why agents should never hard-code a color.</p></div>
+          <div><b>OKLCH color</b><p>Lightness, chroma (intensity), hue. Unlike hex or HSL, equal lightness numbers look equally light to the eye, so scales come out even.</p></div>
+          <div><b>The 12 steps</b><p>1 to 2 page backgrounds, 3 to 5 control backgrounds (normal, hover, pressed), 6 to 8 borders, 9 to 10 solid fills, 11 to 12 text.</p></div>
+          <div><b>4px grid</b><p>All spacing comes from one scale (4, 8, 12, 16, 24, 32...). Consistent gaps are most of what makes a UI look "designed".</p></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const PRESETS = {
+    slate:    { label: "Slate",    blurb: "Calm, precise, serious", hue: 255, chroma: 0.13, light9: 0.55, tint: 0.012, radius: 4,  density: 0.875, font: "IBM Plex Sans",       ratio: 1.2,   base: 15 },
+    apricot:  { label: "Apricot",  blurb: "Warm, friendly, soft",   hue: 62,  chroma: 0.16, light9: 0.76, tint: 0.008, radius: 10, density: 1,     font: "Nunito",              ratio: 1.25,  base: 16 },
+    volt:     { label: "Volt",     blurb: "Bold, vivid, confident", hue: 292, chroma: 0.23, light9: 0.55, tint: 0.02,  radius: 16, density: 1.125, font: "Bricolage Grotesque", ratio: 1.333, base: 16 },
+  };
+  const KEY = "theme-lab-v1";
+  let state, presetId;
+  try { const saved = JSON.parse(localStorage.getItem(KEY) || "null"); if (saved && saved.state) { state = saved.state; presetId = saved.presetId; } } catch (e) {}
+  if (!state) { presetId = "slate"; state = { ...PRESETS.slate }; }
+
+  // ---- OKLCH math ----
+  function oklchToLinear(L, C, H) {
+    const h = H * Math.PI / 180, a = C * Math.cos(h), b = C * Math.sin(h);
+    const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3;
+    const m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3;
+    const s = (L - 0.0894841775 * a - 1.2914855480 * b) ** 3;
+    return [ 4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
+            -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
+            -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s ];
+  }
+  // Reduce chroma until in sRGB gamut, so the hex we export matches what we show.
+  function fit(L, C, H) {
+    let c = C;
+    for (let i = 0; i < 30; i++) {
+      const rgb = oklchToLinear(L, c, H);
+      if (rgb.every(v => v >= -0.0005 && v <= 1.0005)) break;
+      c *= 0.93;
+    }
+    return { L, C: c, H };
+  }
+  const clamp01 = v => Math.min(1, Math.max(0, v));
+  const enc = v => v <= 0.0031308 ? 12.92 * v : 1.055 * Math.pow(v, 1 / 2.4) - 0.055;
+  function info(col) {
+    const lin = oklchToLinear(col.L, col.C, col.H).map(clamp01);
+    const Y = 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2];
+    const hex = "#" + lin.map(v => Math.round(enc(v) * 255).toString(16).padStart(2, "0")).join("");
+    const css = `oklch(${(col.L * 100).toFixed(1)}% ${col.C.toFixed(3)} ${col.H.toFixed(0)})`;
+    return { ...col, Y, hex, css };
+  }
+  const ratio = (a, b) => { const [hi, lo] = a.Y > b.Y ? [a.Y, b.Y] : [b.Y, a.Y]; return (hi + 0.05) / (lo + 0.05); };
+
+  const LIGHT_L = [0.993, 0.982, 0.962, 0.938, 0.910, 0.876, 0.826, 0.752, null, null, 0.505, 0.255];
+  const DARK_L  = [0.165, 0.198, 0.242, 0.278, 0.314, 0.356, 0.410, 0.488, null, null, 0.790, 0.945];
+  const CMUL    = [0.06, 0.13, 0.27, 0.40, 0.50, 0.58, 0.68, 0.84, 1, 1, 0.88, 0.42];
+  function scale(H, C, L9, mode, neutral) {
+    const Ls = mode === "light" ? LIGHT_L : DARK_L;
+    return Ls.map((L, i) => {
+      let l = L;
+      if (i === 8) l = L9;
+      if (i === 9) l = mode === "light" ? L9 - 0.045 : L9 + 0.045;
+      if (neutral && (i === 8 || i === 9)) l = i === 8 ? (mode === "light" ? 0.56 : 0.6) : (mode === "light" ? 0.51 : 0.66);
+      if (neutral && i === 10) l = mode === "light" ? 0.48 : 0.76;
+      const c = neutral ? C * (i < 8 ? 0.6 + 0.08 * i : 1) : C * CMUL[i];
+      return info(fit(l, c, H));
+    });
+  }
+
+  function build(s) {
+    const out = {};
+    for (const mode of ["light", "dark"]) {
+      const sc = {
+        brand:   scale(s.hue, s.chroma, s.light9, mode),
+        neutral: scale(s.hue, s.tint, 0.56, mode, true),
+        success: scale(150, 0.15, 0.60, mode),
+        warning: scale(75, 0.16, 0.79, mode),
+        danger:  scale(25, 0.19, 0.58, mode),
+      };
+      const n = sc.neutral, b = sc.brand;
+      const white = info({ L: 1, C: 0, H: 0 });
+      const ink = info(fit(0.2, Math.min(0.04, s.chroma * 0.3), s.hue));
+      const onFor = solid => ratio(white, solid) >= ratio(ink, solid) ? white : ink;
+      const sem = {
+        "bg":            mode === "light" ? n[1] : n[0],
+        "surface":       mode === "light" ? white : n[1],
+        "control":       n[2],
+        "control-hover": n[3],
+        "border-subtle": n[5],
+        "border":        n[6],
+        "border-strong": n[7],
+        "text":          n[11],
+        "text-muted":    n[10],
+        "accent":        b[8],
+        "accent-hover":  b[9],
+        "accent-subtle": b[2],
+        "accent-text":   b[10],
+        "on-accent":     onFor(b[8]),
+        "focus":         b[7],
+        "danger":        sc.danger[8],
+        "on-danger":     onFor(sc.danger[8]),
+        "danger-subtle": sc.danger[2],
+        "danger-text":   sc.danger[10],
+        "success-subtle": sc.success[2],
+        "success-text":  sc.success[10],
+        "warning-subtle": sc.warning[2],
+        "warning-border": sc.warning[6],
+        "warning-text":  sc.warning[10],
+      };
+      out[mode] = { scales: sc, sem };
+    }
+    const u = 4 * s.density;
+    const space = [1, 2, 3, 4, 5, 6, 8, 12, 16].map(m => +(u * m).toFixed(1));
+    const r = s.radius;
+    const radius = { sm: Math.max(0, Math.round(r * 0.6)), md: r, lg: Math.round(r * 1.5), full: 9999 };
+    const fs = { sm: s.base / s.ratio, base: s.base, lg: s.base * s.ratio, xl: s.base * s.ratio ** 2, "2xl": s.base * s.ratio ** 3 };
+    for (const k in fs) fs[k] = +fs[k].toFixed(1);
+    return { ...out, space, radius, fs };
+  }
+
+  // ---- Preview markup (same for both panels) ----
+  const PREVIEW = `
+    <div style="display:grid;gap:var(--s2)">
+      <div class="row"><span class="badge accent">New</span><span class="muted">Release 2.4 · Nov 14, 2026</span></div>
+      <h3>Ship faster with fewer surprises</h3>
+      <p class="muted" style="font-size:var(--fs-base);max-width:52ch">Every color, gap and corner here comes from one set of tokens. Change the controls and the whole interface follows.</p>
+    </div>
+    <div class="row">
+      <button class="b b-primary" type="button">Create project</button>
+      <button class="b b-secondary" type="button">Import</button>
+      <button class="b b-ghost" type="button">Learn more</button>
+      <button class="b b-danger" type="button">Delete</button>
+    </div>
+    <div class="surface">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" aria-selected="true" type="button">Settings</button>
+        <button class="tab" role="tab" aria-selected="false" type="button">Members</button>
+        <button class="tab" role="tab" aria-selected="false" type="button">Billing</button>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>Project name</label><input class="input" value="Atlas dashboard"><span class="help">Shown in the sidebar.</span></div>
+        <div class="field"><label>Owner email</label><input class="input err" value="atlas@" ><span class="help err">Enter a full email address.</span></div>
+      </div>
+      <div class="field"><label>Region</label><select class="input"><option>Europe (Frankfurt)</option><option>US East</option></select></div>
+      <label class="check"><input type="checkbox" checked> Send me a weekly summary</label>
+      <div class="row" style="justify-content:space-between"><span>Public link</span><button class="sw" role="switch" aria-checked="true" aria-label="Public link" type="button"></button></div>
+    </div>
+    <div class="alert"><b>Storage almost full</b><span class="muted" style="color:var(--text)">You've used 9.2 of 10 GB. Older builds will be removed on Dec 1.</span></div>
+    <div class="grid2">
+      <div class="surface" style="gap:var(--s2)">
+        <span class="muted">Deploys this week</span><span class="stat">1,284</span>
+        <div class="row"><span class="badge ok">+12.4%</span><span class="badge neutral">7 days</span></div>
+      </div>
+      <div class="surface" style="gap:0">
+        <div class="listrow"><span>api-gateway</span><span class="badge ok">Healthy</span></div>
+        <div class="listrow"><span>search-index</span><span class="badge warn">Degraded</span></div>
+        <div class="listrow"><span>billing-worker</span><span class="badge bad">Down</span></div>
+      </div>
+    </div>
+    <div class="dialog" role="group" aria-label="Example dialog">
+      <h4>Archive this project?</h4>
+      <p class="muted" style="font-size:var(--fs-base)">Members lose access, but you can restore it for 30 days.</p>
+      <div class="row"><button class="b b-secondary" type="button">Cancel</button><button class="b b-primary" type="button">Archive</button></div>
+    </div>`;
+
+  const $ = id => document.getElementById(id);
+  const panels = { light: $("pv-light"), dark: $("pv-dark") };
+  for (const p of Object.values(panels)) {
+    p.innerHTML = PREVIEW;
+    p.addEventListener("click", e => {
+      const sw = e.target.closest(".sw");
+      if (sw) sw.setAttribute("aria-checked", sw.getAttribute("aria-checked") !== "true");
+      const tab = e.target.closest(".tab");
+      if (tab) tab.parentElement.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", t === tab));
+    });
+  }
+
+  // ---- Presets ----
+  const presetBox = $("presets");
+  for (const [id, p] of Object.entries(PRESETS)) {
+    const t = build(p);
+    const btn = document.createElement("button");
+    btn.className = "preset"; btn.type = "button"; btn.dataset.id = id;
+    btn.innerHTML = `<span class="dots"><i style="background:${t.light.sem.accent.css}"></i><i style="background:${t.light.sem["accent-subtle"].css}"></i><i style="background:${t.dark.sem.bg.css}"></i></span><b>${p.label}</b><span>${p.blurb}</span>`;
+    btn.addEventListener("click", () => { presetId = id; state = { ...PRESETS[id] }; syncControls(); render(); });
+    presetBox.appendChild(btn);
+  }
+
+  const CTLS = ["hue", "chroma", "light9", "tint", "radius", "density", "font", "ratio", "base"];
+  const NUM = new Set(["hue", "chroma", "light9", "tint", "radius", "density", "ratio", "base"]);
+  function syncControls() { for (const k of CTLS) $(k).value = String(state[k]); }
+  for (const k of CTLS) $(k).addEventListener("input", e => { state[k] = NUM.has(k) ? parseFloat(e.target.value) : e.target.value; render(); });
+  $("reset").addEventListener("click", () => { state = { ...PRESETS[presetId] }; syncControls(); render(); });
+
+  function applyVars(el, mode, t) {
+    const st = el.style;
+    for (const [k, v] of Object.entries(t[mode].sem)) st.setProperty("--" + k, v.css);
+    t.space.forEach((v, i) => st.setProperty("--s" + (i + 1), v + "px"));
+    st.setProperty("--r-sm", t.radius.sm + "px"); st.setProperty("--r-md", t.radius.md + "px"); st.setProperty("--r-lg", t.radius.lg + "px");
+    for (const [k, v] of Object.entries(t.fs)) st.setProperty("--fs-" + k, v + "px");
+    st.setProperty("--font", `"${state.font}", system-ui, sans-serif`);
+    const sh = mode === "light" ? "oklch(0.2 0.02 " + state.hue + " / 0.08)" : "oklch(0 0 0 / 0.45)";
+    st.setProperty("--shadow", `0 1px 2px ${sh}`);
+    st.setProperty("--shadow-lg", `0 12px 32px -8px ${sh}, 0 2px 6px ${sh}`);
+    el.style.colorScheme = mode;
+  }
+
+  const GROUPS = [["bg", 2], ["controls", 3], ["borders", 3], ["solid", 2], ["text", 2]];
+  function renderScales(mode, t) {
+    let h = `<div class="scale-head"><span></span>${Array.from({ length: 12 }, (_, i) => `<span>${i + 1}</span>`).join("")}</div>`;
+    h += `<div class="scale-head" style="margin-bottom:4px"><span></span>${GROUPS.map(([g, n]) => `<span style="grid-column:span ${n};border-top:2px solid var(--line);padding-top:2px">${g}</span>`).join("")}</div>`;
+    for (const [name, steps] of Object.entries(t[mode].scales)) {
+      h += `<div class="scale-row"><span class="nm">${name}</span>${steps.map((c, i) => `<span class="cell" title="${name}-${i + 1}  ${c.hex}  ${c.css}" style="background:${c.css}"></span>`).join("")}</div>`;
+    }
+    $("sc-" + mode).innerHTML = h;
+  }
+
+  const CHECKS = [
+    ["Body text on surface", "text", "surface", 4.5],
+    ["Muted text on surface", "text-muted", "surface", 4.5],
+    ["Muted text on page", "text-muted", "bg", 4.5],
+    ["Link / accent text on surface", "accent-text", "surface", 4.5],
+    ["Button label on brand color", "on-accent", "accent", 4.5],
+    ["Button label on danger", "on-danger", "danger", 4.5],
+    ["Error text on surface", "danger-text", "surface", 4.5],
+    ["Input border on surface (UI)", "border", "surface", 3, true],
+    ["Focus ring on surface (UI)", "focus", "surface", 3],
+  ];
+  function renderContrast(t) {
+    let h = `<thead><tr><th>Pair</th><th>Light</th><th>Dark</th><th>Needs</th></tr></thead><tbody>`;
+    for (const [label, fg, bg, need, soft] of CHECKS) {
+      const cell = mode => {
+        const f = t[mode].sem[fg], b = t[mode].sem[bg], r = ratio(f, b);
+        const ok = r >= need;
+        const chip = ok ? `<span class="chip ok">pass</span>` : `<span class="chip no">${soft ? "low" : "fail"}</span>`;
+        return `<td class="num"><span class="pair" style="background:${b.css};color:${f.css}">Aa</span>${r.toFixed(2)}${chip}</td>`;
+      };
+      h += `<tr><td>${label}</td>${cell("light")}${cell("dark")}<td class="num">${need}:1</td></tr>`;
+    }
+    h += `</tbody>`;
+    $("contrast").innerHTML = h + `<caption style="caption-side:bottom;text-align:left;padding-top:8px;font-size:12.5px;color:var(--ink-soft)">Input borders are often below 3:1 in popular systems; a "low" there is a judgment call, not a blocker.</caption>`;
+  }
+
+  function exportJSON(t) {
+    const pick = mode => {
+      const sc = {}; for (const [k, v] of Object.entries(t[mode].scales)) sc[k] = v.map(c => c.css);
+      const sem = {}; for (const [k, v] of Object.entries(t[mode].sem)) sem[k] = v.css;
+      return { scales: sc, semantic: sem };
+    };
+    return JSON.stringify({
+      source: "Theme Lab", basedOn: PRESETS[presetId].label,
+      inputs: { hue: state.hue, chroma: state.chroma, brandLightness: state.light9, neutralTint: state.tint, radius: state.radius, density: state.density, font: state.font, typeRatio: state.ratio, baseSize: state.base },
+      space: t.space, radius: t.radius, fontSize: t.fs,
+      light: pick("light"), dark: pick("dark"),
+    }, null, 2);
+  }
+  function exportCSS(t) {
+    const block = mode => Object.entries(t[mode].sem).map(([k, v]) => `  --color-${k}: ${v.css};`).join("\n");
+    const shared = [
+      ...t.space.map((v, i) => `  --space-${i + 1}: ${v}px;`),
+      `  --radius-sm: ${t.radius.sm}px;`, `  --radius-md: ${t.radius.md}px;`, `  --radius-lg: ${t.radius.lg}px;`,
+      ...Object.entries(t.fs).map(([k, v]) => `  --text-${k}: ${v}px;`),
+      `  --font-sans: "${state.font}", system-ui, sans-serif;`,
+    ].join("\n");
+    return `:root {\n${shared}\n${block("light")}\n}\n.dark {\n${block("dark")}\n}\n`;
+  }
+
+  let current;
+  function render() {
+    const t = build(state); current = t;
+    applyVars(panels.light, "light", t); applyVars(panels.dark, "dark", t);
+    renderScales("light", t); renderScales("dark", t); renderContrast(t);
+    $("out").value = exportJSON(t);
+    $("o-hue").textContent = state.hue + "°"; $("o-chroma").textContent = state.chroma.toFixed(3);
+    $("o-light9").textContent = state.light9.toFixed(2); $("o-tint").textContent = state.tint.toFixed(3);
+    $("o-radius").textContent = state.radius + "px";
+    $("o-density").textContent = ({ 0.75: "tight", 0.875: "compact", 1: "comfortable", 1.125: "roomy", 1.25: "spacious" })[state.density] + ` · ${4 * state.density}px`;
+    $("o-ratio").textContent = state.ratio; $("o-base").textContent = state.base + "px";
+    presetBox.querySelectorAll(".preset").forEach(b => b.setAttribute("aria-pressed", b.dataset.id === presetId));
+    try { localStorage.setItem(KEY, JSON.stringify({ state, presetId })); } catch (e) {}
+  }
+
+  async function copy(text, what) {
+    const msg = $("copied");
+    try { await navigator.clipboard.writeText(text); msg.textContent = what + " copied. Paste it to Claude."; }
+    catch (e) { const ta = $("out"); ta.value = text; ta.focus(); ta.select(); msg.textContent = "Selected. Press Ctrl+C to copy."; }
+    setTimeout(() => { msg.textContent = ""; }, 4000);
+  }
+  $("copy-json").addEventListener("click", () => copy(exportJSON(current), "JSON"));
+  $("copy-css").addEventListener("click", () => copy(exportCSS(current), "CSS"));
+
+  syncControls(); render();
+})();
+</script>

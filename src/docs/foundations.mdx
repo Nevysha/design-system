@@ -1,0 +1,60 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { colors, space, radius, fontSize, fontFamily } from "../tokens";
+
+<Meta title="Foundations/Tokens" />
+
+# Tokens
+
+Every visual decision lives in `src/tokens/theme.json`. Components only use the semantic names below,
+so changing the theme changes everything at once. Toggle light/dark in the toolbar.
+
+## Colors
+
+<div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+  {Object.keys(colors.light).map((name) => (
+    <div key={name} className="overflow-hidden rounded-md border border-border-subtle bg-surface">
+      <div className="h-12" style={{ background: `var(--ds-${name})` }} />
+      <div className="p-2 text-sm">
+        <code>{name}</code>
+      </div>
+    </div>
+  ))}
+</div>
+
+## Spacing
+
+One unit = {space[0]}px. Use `p-1`, `p-2`, `gap-4`, etc.
+
+<div className="grid gap-2">
+  {[1, 2, 3, 4, 6, 8, 12, 16].map((n) => (
+    <div key={n} className="flex items-center gap-3 text-sm">
+      <code className="w-12">{n}</code>
+      <div className="h-3 rounded-sm bg-accent" style={{ width: `calc(var(--spacing) * ${n})` }} />
+    </div>
+  ))}
+</div>
+
+## Radius
+
+<div className="flex flex-wrap gap-4">
+  {["sm", "md", "lg"].map((r) => (
+    <div key={r} className="grid gap-1 text-center text-sm">
+      <div className="size-16 border border-border bg-control" style={{ borderRadius: `var(--radius-${r})` }} />
+      <code>rounded-{r}</code> {radius[r]}px
+    </div>
+  ))}
+</div>
+
+## Type
+
+Font: **{fontFamily}**
+
+<div className="grid gap-2">
+  {Object.entries(fontSize).reverse().map(([k, v]) => (
+    <div key={k} className="flex items-baseline gap-4">
+      <code className="w-16 text-sm">text-{k}</code>
+      <span style={{ fontSize: `var(--text-${k})` }}>Ship faster with fewer surprises</span>
+      <span className="text-sm text-text-muted">{v}px</span>
+    </div>
+  ))}
+</div>
