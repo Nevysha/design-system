@@ -5,12 +5,12 @@ var e = {
 		hue: 308,
 		chroma: .25,
 		brandLightness: .53,
-		neutralTint: .04,
+		neutralTint: .02,
 		radius: 4,
 		density: .75,
 		font: "Montserrat",
 		typeRatio: 1.25,
-		baseSize: 14
+		baseSize: 15
 	},
 	space: [
 		3,
@@ -30,11 +30,11 @@ var e = {
 		full: 9999
 	},
 	fontSize: {
-		sm: 11.2,
-		base: 14,
-		lg: 17.5,
-		xl: 21.9,
-		"2xl": 27.3
+		sm: 12,
+		base: 15,
+		lg: 18.8,
+		xl: 23.4,
+		"2xl": 29.3
 	},
 	light: {
 		scales: {
@@ -55,16 +55,16 @@ var e = {
 			neutral: [
 				"oklch(99.3% 0.004 308)",
 				"oklch(98.2% 0.011 308)",
-				"oklch(96.2% 0.023 308)",
-				"oklch(93.8% 0.034 308)",
-				"oklch(91.0% 0.037 308)",
-				"oklch(87.6% 0.040 308)",
-				"oklch(82.6% 0.043 308)",
-				"oklch(75.2% 0.046 308)",
-				"oklch(56.0% 0.040 308)",
-				"oklch(51.0% 0.040 308)",
-				"oklch(48.0% 0.040 308)",
-				"oklch(25.5% 0.040 308)"
+				"oklch(96.2% 0.015 308)",
+				"oklch(93.8% 0.017 308)",
+				"oklch(91.0% 0.018 308)",
+				"oklch(87.6% 0.020 308)",
+				"oklch(82.6% 0.022 308)",
+				"oklch(75.2% 0.023 308)",
+				"oklch(56.0% 0.020 308)",
+				"oklch(51.0% 0.020 308)",
+				"oklch(48.0% 0.020 308)",
+				"oklch(25.5% 0.020 308)"
 			],
 			success: [
 				"oklch(99.3% 0.009 150)",
@@ -112,13 +112,13 @@ var e = {
 		semantic: {
 			bg: "oklch(98.2% 0.011 308)",
 			surface: "oklch(100.0% 0.000 0)",
-			control: "oklch(96.2% 0.023 308)",
-			"control-hover": "oklch(93.8% 0.034 308)",
-			"border-subtle": "oklch(87.6% 0.040 308)",
-			border: "oklch(82.6% 0.043 308)",
-			"border-strong": "oklch(75.2% 0.046 308)",
-			text: "oklch(25.5% 0.040 308)",
-			"text-muted": "oklch(48.0% 0.040 308)",
+			control: "oklch(96.2% 0.015 308)",
+			"control-hover": "oklch(93.8% 0.017 308)",
+			"border-subtle": "oklch(87.6% 0.020 308)",
+			border: "oklch(82.6% 0.022 308)",
+			"border-strong": "oklch(75.2% 0.023 308)",
+			text: "oklch(25.5% 0.020 308)",
+			"text-muted": "oklch(48.0% 0.020 308)",
 			accent: "oklch(53.0% 0.250 308)",
 			"accent-hover": "oklch(48.5% 0.233 308)",
 			"accent-subtle": "oklch(96.2% 0.023 308)",
@@ -153,18 +153,18 @@ var e = {
 				"oklch(94.5% 0.033 308)"
 			],
 			neutral: [
-				"oklch(16.5% 0.024 308)",
-				"oklch(19.8% 0.027 308)",
-				"oklch(24.2% 0.030 308)",
-				"oklch(27.8% 0.034 308)",
-				"oklch(31.4% 0.037 308)",
-				"oklch(35.6% 0.040 308)",
-				"oklch(41.0% 0.043 308)",
-				"oklch(48.8% 0.046 308)",
-				"oklch(60.0% 0.040 308)",
-				"oklch(66.0% 0.040 308)",
-				"oklch(76.0% 0.040 308)",
-				"oklch(94.5% 0.032 308)"
+				"oklch(16.5% 0.012 308)",
+				"oklch(19.8% 0.014 308)",
+				"oklch(24.2% 0.015 308)",
+				"oklch(27.8% 0.017 308)",
+				"oklch(31.4% 0.018 308)",
+				"oklch(35.6% 0.020 308)",
+				"oklch(41.0% 0.022 308)",
+				"oklch(48.8% 0.023 308)",
+				"oklch(60.0% 0.020 308)",
+				"oklch(66.0% 0.020 308)",
+				"oklch(76.0% 0.020 308)",
+				"oklch(94.5% 0.020 308)"
 			],
 			success: [
 				"oklch(16.5% 0.009 150)",
@@ -210,15 +210,15 @@ var e = {
 			]
 		},
 		semantic: {
-			bg: "oklch(16.5% 0.024 308)",
-			surface: "oklch(19.8% 0.027 308)",
-			control: "oklch(24.2% 0.030 308)",
-			"control-hover": "oklch(27.8% 0.034 308)",
-			"border-subtle": "oklch(35.6% 0.040 308)",
-			border: "oklch(41.0% 0.043 308)",
-			"border-strong": "oklch(48.8% 0.046 308)",
-			text: "oklch(94.5% 0.032 308)",
-			"text-muted": "oklch(76.0% 0.040 308)",
+			bg: "oklch(16.5% 0.012 308)",
+			surface: "oklch(19.8% 0.014 308)",
+			control: "oklch(24.2% 0.015 308)",
+			"control-hover": "oklch(27.8% 0.017 308)",
+			"border-subtle": "oklch(35.6% 0.020 308)",
+			border: "oklch(41.0% 0.022 308)",
+			"border-strong": "oklch(48.8% 0.023 308)",
+			text: "oklch(94.5% 0.020 308)",
+			"text-muted": "oklch(76.0% 0.020 308)",
 			accent: "oklch(53.0% 0.250 308)",
 			"accent-hover": "oklch(57.5% 0.250 308)",
 			"accent-subtle": "oklch(24.2% 0.068 308)",
