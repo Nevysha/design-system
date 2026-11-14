@@ -4,7 +4,7 @@ Nevysha's React design system: design tokens, accessible components, and Storybo
 
 ## Install (in an app)
 
-From the private GitHub repo (your git credentials must have access):
+From the GitHub repo:
 
 ```sh
 pnpm add github:Nevysha/design-system#v0.1.0   # a released version

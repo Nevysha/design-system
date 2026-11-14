@@ -3,6 +3,7 @@
   "version": "0.1.1",
   "private": true,
   "description": "Nevysha's React design system: tokens, components, Storybook.",
+  "license": "MIT",
   "type": "module",
   "packageManager": "pnpm@12.18.0",
   "sideEffects": [
@@ -13,7 +14,8 @@
     "skills",
     "bin",
     "AGENTS.md",
-    "CONTRIBUTING.md"
+    "CONTRIBUTING.md",
+    "LICENSE"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
