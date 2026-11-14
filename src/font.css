@@ -1,0 +1,6 @@
+/*
+ * Theme font: Montserrat (variable weights), self-hosted from @fontsource.
+ * Shipped as-is (not bundled) so the app's bundler emits the font files and the
+ * browser only downloads the subsets a page actually uses.
+ */
+@import "@fontsource-variable/montserrat/wght.css";

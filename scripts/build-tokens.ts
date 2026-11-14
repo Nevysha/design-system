@@ -55,7 +55,7 @@ ${colorNames.map((n) => `  --color-${n}: var(--ds-${n});`).join("\n")}
   --radius-md: ${theme.radius.md}px;
   --radius-lg: ${theme.radius.lg}px;
 
-  --font-sans: "${theme.inputs.font}", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "${theme.inputs.font} Variable", "${theme.inputs.font}", ui-sans-serif, system-ui, sans-serif;
 ${fontSizes}
 }
 `;

@@ -5,7 +5,8 @@ Nevysha's React design system. Rules for any coding agent working **in** this re
 ## Using it in an app
 
 ```tsx
-import "@nevysha/ui/styles.css"; // once, at the app root
+import "@nevysha/ui/font.css"; // once, at the app root: Montserrat
+import "@nevysha/ui/styles.css"; // once, at the app root: tokens + component styles
 import { Button } from "@nevysha/ui";
 ```
 

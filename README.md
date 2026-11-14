@@ -7,6 +7,7 @@ Nevysha's React design system: design tokens, accessible components, and Storybo
 Not published yet (see TODO.md). Planned: installed from the private GitHub repo with pnpm.
 
 ```tsx
+import "@nevysha/ui/font.css";
 import "@nevysha/ui/styles.css";
 import { Button } from "@nevysha/ui";
 

@@ -1,7 +1,7 @@
 <title>Theme Lab</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&display=swap">
 <style>
 /* Layout: sticky control rail on the left, live light+dark previews on the right, then scales, contrast and export below. */
 :root {
@@ -208,9 +208,9 @@ textarea#out { width: 100%; min-height: 220px; font: 12px/1.5 var(--font-mono); 
         <label for="font">Typeface</label>
         <select id="font">
           <option>IBM Plex Sans</option><option>Inter</option><option>Figtree</option><option>DM Sans</option>
-          <option>Manrope</option><option>Nunito</option><option>Bricolage Grotesque</option>
+          <option>Manrope</option><option>Montserrat</option><option>Nunito</option><option>Bricolage Grotesque</option>
         </select>
-        <small>One family for everything keeps it simple. Plex and Inter are neutral, Nunito is round, Bricolage has character.</small>
+        <small>One family for everything keeps it simple. Plex and Inter are neutral, Montserrat is geometric and wide, Nunito is round, Bricolage has character.</small>
       </div>
       <div class="ctl">
         <label for="ratio">Type scale <output id="o-ratio"></output></label>
@@ -361,7 +361,7 @@ textarea#out { width: 100%; min-height: 220px; font: 12px/1.5 var(--font-mono); 
         "accent-subtle": b[2],
         "accent-text":   b[10],
         "on-accent":     onFor(b[8]),
-        "focus":         b[7],
+        "focus":         b[8],
         "danger":        sc.danger[8],
         "on-danger":     onFor(sc.danger[8]),
         "danger-subtle": sc.danger[2],
