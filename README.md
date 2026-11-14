@@ -7,12 +7,15 @@ Nevysha's React design system: design tokens, accessible components, and Storybo
 From the private GitHub repo (your git credentials must have access):
 
 ```sh
-pnpm add github:Nevysha/design-system          # latest main
-pnpm add github:Nevysha/design-system#v0.1.0   # a tagged version (recommended)
+pnpm add github:Nevysha/design-system#v0.1.0   # a released version
 pnpm exec nevysha-ui-skill                     # copy the Claude skill into this app
 ```
 
-pnpm builds the package on install (`prepack`). If pnpm asks to approve the build, allow `@nevysha/ui`.
+Always install a version tag: tags point at ready-built releases (branch `release`), so nothing is built during install. `main` holds the source and can't be installed directly.
+
+## Release
+
+Bump `version` in `package.json`, commit, then `pnpm release`. It runs the checks, builds, commits the built package to the `release` branch and pushes the tag `v<version>`.
 
 ```tsx
 import "@nevysha/ui/font.css";

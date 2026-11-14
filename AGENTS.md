@@ -4,7 +4,7 @@ Nevysha's React design system. Rules for any coding agent working **in** this re
 
 ## Using it in an app
 
-Install: `pnpm add github:Nevysha/design-system`, then `pnpm exec nevysha-ui-skill` to copy the Claude skill into the app (`.claude/skills/nevysha-ui/`).
+Install a released tag: `pnpm add github:Nevysha/design-system#v0.1.0` (never `main`: it isn't built), then `pnpm exec nevysha-ui-skill` to copy the Claude skill into the app (`.claude/skills/nevysha-ui/`).
 
 ```tsx
 import "@nevysha/ui/font.css"; // once, at the app root: Montserrat
@@ -34,7 +34,7 @@ import { Button } from "@nevysha/ui";
 - Stack: React 19, TypeScript (strict), Tailwind v4, Radix (`radix-ui`), class-variance-authority, Vite (library mode), Vitest + Testing Library + axe, Storybook 10. Package manager: **pnpm**.
 - `pnpm check`: typecheck + lint + tests. Run it before every commit.
 - `pnpm dev`: Storybook on http://localhost:6006 (MCP endpoint for agents: http://localhost:6006/mcp).
-- `pnpm build`: library to `dist/`. `pnpm tokens`: regenerate `src/tokens/theme.css` from `src/tokens/theme.json`.
+- `pnpm build`: library to `dist/`. `pnpm release`: publish a built version to the `release` branch + tag (bump `version` first). `pnpm tokens`: regenerate `src/tokens/theme.css` from `src/tokens/theme.json`.
 - Tokens: `src/tokens/theme.json` is the source of truth (exported from the Theme Lab in `playground/`). `theme.css` is generated: never edit it by hand.
 
 ### Adding a component

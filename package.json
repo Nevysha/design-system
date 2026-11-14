@@ -38,7 +38,7 @@
     "lint": "eslint .",
     "check": "pnpm typecheck && pnpm lint && pnpm test",
     "tokens": "node scripts/build-tokens.ts",
-    "prepack": "pnpm build"
+    "release": "bash scripts/release.sh"
   },
   "peerDependencies": {
     "react": ">=19",
