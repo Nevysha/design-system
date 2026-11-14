@@ -15,7 +15,7 @@ Always install a version tag: tags point at ready-built releases (branch `releas
 
 ## Release
 
-Bump `version` in `package.json`, commit, then `pnpm release`. It runs the checks, builds, commits the built package to the `release` branch and pushes the tag `v<version>`.
+Every push to `main` is followed by `pnpm release patch|minor|major`. It bumps the version, pushes `main`, runs the checks, builds, commits the built package to the `release` branch and pushes the tag `v<version>`.
 
 ```tsx
 import "@nevysha/ui/font.css";

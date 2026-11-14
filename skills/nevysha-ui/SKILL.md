@@ -60,6 +60,10 @@ Dark mode: `class="dark"` (or `data-theme="dark"`) on `<html>`.
 
 Full props, states and examples: run the design system's Storybook (`pnpm dev` in the design-system repo) - it also serves an MCP endpoint at http://localhost:6006/mcp.
 
+## Missing something?
+
+If no component fits, or you find a bug: don't patch the design system's code inside `node_modules`, and don't fork its styles into the app. Follow [CONTRIBUTING.md](https://github.com/Nevysha/design-system/blob/main/CONTRIBUTING.md) (also at `node_modules/@nevysha/ui/CONTRIBUTING.md`): suggest the change in an issue, or implement it in a pull request. Meanwhile, compose existing components with tokens only and mark the spot with `// TODO(@nevysha/ui): <issue link>`.
+
 ## Patterns
 
 **Form field with error**
