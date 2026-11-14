@@ -29,11 +29,12 @@
       "import": "./dist/tokens.js"
     },
     "./styles.css": "./dist/styles.css",
+    "./theme.css": "./dist/theme.css",
     "./font.css": "./dist/font.css"
   },
   "scripts": {
     "dev": "storybook dev -p 6006",
-    "build": "vite build && tsc -p tsconfig.build.json && cp src/font.css dist/font.css",
+    "build": "vite build && tsc -p tsconfig.build.json && cp src/font.css dist/font.css && cp src/theme.css dist/theme.css && cp src/tokens/theme.css dist/tokens/theme.css",
     "build-storybook": "storybook build",
     "test": "vitest run",
     "test:watch": "vitest",
