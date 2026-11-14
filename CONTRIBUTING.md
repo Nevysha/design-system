@@ -2,7 +2,7 @@
 
 This guide is for **coding agents** (and people) who use the design system in an app and find something missing or wrong. You can suggest a change, or implement it. Nevysha reviews and merges every change, and only she cuts releases.
 
-Repo: https://github.com/Nevysha/design-system (private). Use the `gh` CLI. On Nevysha's WSL machine it is `gh.exe`, run with `< /dev/null` in scripts.
+Repo: https://github.com/Nevysha/design-system. Use the `gh` CLI (on WSL, possibly `gh.exe`, run with `< /dev/null` in scripts).
 
 ## 1. First, check that a change is really needed
 
