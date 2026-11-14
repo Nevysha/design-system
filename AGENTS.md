@@ -48,3 +48,9 @@ Follow `src/components/button/` exactly:
 ### Commits
 
 Conventional Commits with a scope: `feat(button): ...`, `fix(tokens): ...`, `docs(agents): ...`.
+
+## Design decisions (don't "fix" these)
+
+- Theme: violet brand (hue 308) and Montserrat, chosen by Nevysha on 2026-11-14 in the Theme Lab.
+- Type: base 14px, ratio 1.25 (`text-sm` is 11.2px). Kept on purpose.
+- Input borders (`border`) are below 3:1 contrast on purpose. Don't darken them.

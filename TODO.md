@@ -1,7 +1,5 @@
 # TODO
 
-- [ ] Theme: violet (hue 308) + Montserrat applied on 2026-11-14 from the Theme Lab export ("so far"); re-export and run `pnpm tokens` if it changes.
-- [ ] Type: base 14px with ratio 1.25 makes `text-sm` 11.2px, below the usual 12px minimum for readable text. Decide whether to raise it.
 - [ ] Theme Lab: the "compact" density gives half-pixel spacing (3.5px unit). Decide whether to round to whole pixels.
 - [ ] Components: Input, Label, Textarea, Checkbox, Switch, Select, Card, Badge, Dialog, Tooltip, Tabs, Toast (follow `src/components/button/`).
 - [ ] Agent layer: Claude skill for apps that use the design system; usage notes in each component's JSDoc; check the Storybook MCP addon works with Claude Code.
