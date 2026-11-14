@@ -40,7 +40,10 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md): when to suggest a change (issue) and wh
 - `pnpm check`: typecheck + lint + tests. Run it before every commit.
 - `pnpm dev`: Storybook on http://localhost:6006 (MCP endpoint for agents: http://localhost:6006/mcp).
 - `pnpm build`: library to `dist/`. `pnpm release patch|minor|major`: bump, then publish a built version to the `release` branch + tag. `pnpm tokens`: regenerate `src/tokens/theme.css` from `src/tokens/theme.json`. `src/theme.css` is the Tailwind entry (tokens + dark variant + base) shipped as `@nevysha/ui/theme.css`; `src/styles.css` is Tailwind + that entry, compiled.
-- Tokens: `src/tokens/theme.json` is the source of truth (exported from the Theme Lab in `playground/`). `theme.css` is generated: never edit it by hand.
+- Tokens: `src/tokens/theme.json` is the source of truth. `theme.css` is generated: never edit it by hand.
+  - Nevysha tunes the theme in Storybook's **Playground/Theme** story (live on the whole UI) and pastes back the theme.json it copies. Save it as `src/tokens/theme.json`, run `pnpm tokens`, check the generator test still passes, then commit and release. (The older standalone Theme Lab, `playground/theme-lab.html`, uses the same math.)
+  - `src/tokens/generate.ts` is the generator (inputs → theme.json); `generate.test.ts` checks it rebuilds the committed theme.json exactly.
+  - **Showcase/Dashboard** (`src/showcase/`) uses every component: add new components to it. Neither is shipped in the library.
 
 ### Adding a component
 

@@ -54,7 +54,13 @@ ${vars(theme.dark, "dark")}
   --color-transparent: transparent;
   --color-current: currentColor;
 ${colorNames.map((n) => `  --color-${n}: var(--ds-${n});`).join("\n")}
+}
 
+/*
+ * Sizes. Not inline: utilities read them through var(--spacing), var(--text-sm)..., so a theme
+ * can be changed at runtime by setting these variables (the Storybook playground does that).
+ */
+@theme {
   /* Spacing: every p-*, m-*, gap-* is a multiple of this unit (the 4px grid, scaled by density). */
   --spacing: ${4 * theme.inputs.density}px;
 

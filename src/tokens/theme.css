@@ -93,7 +93,13 @@
   --color-warning-border: var(--ds-warning-border);
   --color-warning-text: var(--ds-warning-text);
   --color-overlay: var(--ds-overlay);
+}
 
+/*
+ * Sizes. Not inline: utilities read them through var(--spacing), var(--text-sm)..., so a theme
+ * can be changed at runtime by setting these variables (the Storybook playground does that).
+ */
+@theme {
   /* Spacing: every p-*, m-*, gap-* is a multiple of this unit (the 4px grid, scaled by density). */
   --spacing: 3px;
 

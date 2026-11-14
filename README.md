@@ -39,6 +39,6 @@ pnpm tokens       # regenerate CSS from src/tokens/theme.json
 
 ## How it fits together
 
-- **Tokens:** `src/tokens/theme.json` holds every design decision (colors for light and dark, spacing, radius, type). It is exported from the **Theme Lab** (`playground/theme-lab.html`). `pnpm tokens` turns it into CSS variables and a Tailwind theme.
+- **Tokens:** `src/tokens/theme.json` holds every design decision (colors for light and dark, spacing, radius, type). It is made with the **Playground/Theme** story in Storybook (sliders for hue, chroma, radius, density, font, type scale, applied live to a demo dashboard, then "Copy theme.json"), from the same generator as the older Theme Lab (`playground/theme-lab.html`). `pnpm tokens` turns it into CSS variables and a Tailwind theme.
 - **Components:** `src/components/*`, shadcn-style (Radix + Tailwind + cva), each with tests and stories.
 - **Agents:** `skills/nevysha-ui/SKILL.md` is the Claude skill for apps (catalog + rules + patterns); `AGENTS.md` has the rules for this repo; ESLint blocks raw colors and arbitrary values; Storybook exposes an MCP server.
