@@ -38,7 +38,7 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md): when to suggest a change (issue) and wh
 - Stack: React 19, TypeScript (strict), Tailwind v4, Radix (`radix-ui`), class-variance-authority, Vite (library mode), Vitest + Testing Library + axe, Storybook 10. Package manager: **pnpm**.
 - `pnpm check`: typecheck + lint + tests. Run it before every commit.
 - `pnpm dev`: Storybook on http://localhost:6006 (MCP endpoint for agents: http://localhost:6006/mcp).
-- `pnpm build`: library to `dist/`. `pnpm release`: publish a built version to the `release` branch + tag (bump `version` first). `pnpm tokens`: regenerate `src/tokens/theme.css` from `src/tokens/theme.json`.
+- `pnpm build`: library to `dist/`. `pnpm release patch|minor|major`: bump, then publish a built version to the `release` branch + tag. `pnpm tokens`: regenerate `src/tokens/theme.css` from `src/tokens/theme.json`.
 - Tokens: `src/tokens/theme.json` is the source of truth (exported from the Theme Lab in `playground/`). `theme.css` is generated: never edit it by hand.
 
 ### Adding a component
@@ -52,9 +52,13 @@ Follow `src/components/button/` exactly:
 5. `index.ts` in the folder, and export it from `src/index.ts`.
 6. Add every new export to the catalog in `skills/nevysha-ui/SKILL.md` (a test fails otherwise). That skill is what agents in apps read.
 
-### Commits
+### Commits and releases
 
 Conventional Commits with a scope: `feat(button): ...`, `fix(tokens): ...`, `docs(agents): ...`.
+
+**Every push to `main` is followed by a release** (Nevysha's rule), so apps can pick up the change right away. After pushing, run `pnpm release <bump>`: `patch` for fixes and docs, `minor` for new components, variants or props, `major` for breaking changes. It bumps the version, commits, pushes `main`, runs the checks, and publishes the built release and its tag.
+
+This applies to sessions working on `main` for Nevysha. Contributors working through pull requests don't release (see CONTRIBUTING.md); Nevysha releases after merging.
 
 ## Design decisions (don't "fix" these)
 

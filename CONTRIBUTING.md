@@ -70,7 +70,7 @@ A good issue gives:
 
 ## 5. After the merge
 
-Nevysha releases a new version (`pnpm release`). Then, in the app:
+Nevysha releases a new version (`pnpm release <bump>`). Then, in the app:
 
 ```sh
 pnpm add github:Nevysha/design-system#v<new-version>
