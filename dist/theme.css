@@ -1,0 +1,27 @@
+/*
+ * Tailwind entry: the design tokens, the dark variant and the base styles, without Tailwind itself.
+ * styles.css (the prebuilt stylesheet) is made from it. Apps that run Tailwind v4 themselves use it
+ * instead of styles.css, so their own classes (gap-6, text-text-muted...) get the same tokens:
+ *
+ *   @import "tailwindcss";
+ *   @import "@nevysha/ui/theme.css";
+ */
+@import "./tokens/theme.css";
+
+/* Scan this folder too, so the components' classes are generated in the app's build (Tailwind
+   skips node_modules unless told). In the repo it's src/, which Tailwind scans anyway. */
+@source "./";
+
+/* `dark:` utilities follow the .dark class / data-theme="dark", not the OS setting. */
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
+@layer base {
+  * {
+    border-color: var(--ds-border-subtle);
+  }
+  body {
+    background: var(--ds-bg);
+    color: var(--ds-text);
+    font-family: var(--font-sans);
+  }
+}

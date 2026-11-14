@@ -23,6 +23,15 @@ import { Toaster, TooltipProvider } from "@nevysha/ui";
 
 Dark mode: `class="dark"` (or `data-theme="dark"`) on `<html>`.
 
+**If the app runs Tailwind v4 itself** (to write its own layout classes like `gap-6` or `text-text-muted`), import the theme instead of `styles.css`, in the app's CSS entry:
+
+```css
+@import "tailwindcss";
+@import "@nevysha/ui/theme.css"; /* tokens, dark variant, base styles; scans the components too */
+```
+
+Without Tailwind in the app, only the classes the components themselves use exist, so write app layout with components or plain CSS on the `--ds-*` variables.
+
 ## Rules
 
 1. **Use a component before writing markup.** Catalog below. If nothing fits, compose existing ones; only then write new markup, styled with tokens.
@@ -52,6 +61,7 @@ Dark mode: `class="dark"` (or `data-theme="dark"`) on `<html>`.
 | `Select` | `Select`, `SelectTrigger`, `SelectValue`, `SelectContent`, `SelectItem`, `SelectGroup`, `SelectLabel`, `SelectSeparator` | Pick one of ~5-15 options. |
 | `Badge` | `Badge`, `badgeVariants` | Status labels. `variant`: neutral, accent, success, warning, danger. Not clickable. |
 | `Card` | `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter` | Group related content. Don't nest cards. |
+| `Table` | `Table`, `TableHeader`, `TableBody`, `TableFooter`, `TableRow`, `TableHead`, `TableCell`, `TableCaption` | Rows of records with the same fields. `data-state="selected"` on the chosen row. Name it with a caption or `aria-label`. Not for layout. |
 | `Dialog` | `Dialog`, `DialogTrigger`, `DialogContent`, `DialogHeader`, `DialogTitle`, `DialogDescription`, `DialogFooter`, `DialogClose` | Confirm destructive actions, short focused tasks. |
 | `Tabs` | `Tabs`, `TabsList`, `TabsTrigger`, `TabsContent` | Views of one object. Not for navigation or steps. |
 | `Tooltip` | `TooltipProvider`, `Tooltip`, `TooltipTrigger`, `TooltipContent` | Name icon-only buttons. Never essential info. |
