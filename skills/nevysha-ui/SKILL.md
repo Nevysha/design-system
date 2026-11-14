@@ -52,6 +52,7 @@ Dark mode: `class="dark"` (or `data-theme="dark"`) on `<html>`.
 | `Select` | `Select`, `SelectTrigger`, `SelectValue`, `SelectContent`, `SelectItem`, `SelectGroup`, `SelectLabel`, `SelectSeparator` | Pick one of ~5-15 options. |
 | `Badge` | `Badge`, `badgeVariants` | Status labels. `variant`: neutral, accent, success, warning, danger. Not clickable. |
 | `Card` | `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter` | Group related content. Don't nest cards. |
+| `Table` | `Table`, `TableHeader`, `TableBody`, `TableFooter`, `TableRow`, `TableHead`, `TableCell`, `TableCaption` | Rows of records with the same fields. `data-state="selected"` on the chosen row. Name it with a caption or `aria-label`. Not for layout. |
 | `Dialog` | `Dialog`, `DialogTrigger`, `DialogContent`, `DialogHeader`, `DialogTitle`, `DialogDescription`, `DialogFooter`, `DialogClose` | Confirm destructive actions, short focused tasks. |
 | `Tabs` | `Tabs`, `TabsList`, `TabsTrigger`, `TabsContent` | Views of one object. Not for navigation or steps. |
 | `Tooltip` | `TooltipProvider`, `Tooltip`, `TooltipTrigger`, `TooltipContent` | Name icon-only buttons. Never essential info. |
