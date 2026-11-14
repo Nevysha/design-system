@@ -28,6 +28,10 @@ export default tseslint.config(
     },
   },
   {
+    files: ["bin/**/*.mjs", "scripts/**/*.{js,mjs}"],
+    languageOptions: { globals: globals.node },
+  },
+  {
     files: ["src/**/*.{ts,tsx}"],
     ignores: ["src/tokens/**", "src/test/**"],
     rules: {

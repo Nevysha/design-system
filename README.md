@@ -4,7 +4,15 @@ Nevysha's React design system: design tokens, accessible components, and Storybo
 
 ## Install (in an app)
 
-Not published yet (see TODO.md). Planned: installed from the private GitHub repo with pnpm.
+From the private GitHub repo (your git credentials must have access):
+
+```sh
+pnpm add github:Nevysha/design-system          # latest main
+pnpm add github:Nevysha/design-system#v0.1.0   # a tagged version (recommended)
+pnpm exec nevysha-ui-skill                     # copy the Claude skill into this app
+```
+
+pnpm builds the package on install (`prepack`). If pnpm asks to approve the build, allow `@nevysha/ui`.
 
 ```tsx
 import "@nevysha/ui/font.css";
@@ -30,4 +38,4 @@ pnpm tokens       # regenerate CSS from src/tokens/theme.json
 
 - **Tokens:** `src/tokens/theme.json` holds every design decision (colors for light and dark, spacing, radius, type). It is exported from the **Theme Lab** (`playground/theme-lab.html`). `pnpm tokens` turns it into CSS variables and a Tailwind theme.
 - **Components:** `src/components/*`, shadcn-style (Radix + Tailwind + cva), each with tests and stories.
-- **Agents:** `AGENTS.md` has the rules; ESLint blocks raw colors and arbitrary values; Storybook exposes an MCP server.
+- **Agents:** `skills/nevysha-ui/SKILL.md` is the Claude skill for apps (catalog + rules + patterns); `AGENTS.md` has the rules for this repo; ESLint blocks raw colors and arbitrary values; Storybook exposes an MCP server.

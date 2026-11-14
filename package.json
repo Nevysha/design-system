@@ -9,7 +9,10 @@
     "**/*.css"
   ],
   "files": [
-    "dist"
+    "dist",
+    "skills",
+    "bin",
+    "AGENTS.md"
   ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -34,7 +37,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "check": "pnpm typecheck && pnpm lint && pnpm test",
-    "tokens": "node scripts/build-tokens.ts"
+    "tokens": "node scripts/build-tokens.ts",
+    "prepack": "pnpm build"
   },
   "peerDependencies": {
     "react": ">=19",
@@ -76,5 +80,12 @@
     "typescript-eslint": "^8.72.2",
     "vite": "^8.3.8",
     "vitest": "^5.1.0"
+  },
+  "bin": {
+    "nevysha-ui-skill": "./bin/install-skill.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nevysha/design-system.git"
   }
 }

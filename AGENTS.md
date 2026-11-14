@@ -4,6 +4,8 @@ Nevysha's React design system. Rules for any coding agent working **in** this re
 
 ## Using it in an app
 
+Install: `pnpm add github:Nevysha/design-system`, then `pnpm exec nevysha-ui-skill` to copy the Claude skill into the app (`.claude/skills/nevysha-ui/`).
+
 ```tsx
 import "@nevysha/ui/font.css"; // once, at the app root: Montserrat
 import "@nevysha/ui/styles.css"; // once, at the app root: tokens + component styles
@@ -44,6 +46,7 @@ Follow `src/components/button/` exactly:
 3. `<name>.test.tsx`: behavior (roles, keyboard, callbacks), variants, `className` merge, and an `axeViolations()` check that must return `[]`.
 4. `<name>.stories.tsx`: `tags: ["autodocs"]`, one story per variant/state, realistic content (no lorem ipsum).
 5. `index.ts` in the folder, and export it from `src/index.ts`.
+6. Add every new export to the catalog in `skills/nevysha-ui/SKILL.md` (a test fails otherwise). That skill is what agents in apps read.
 
 ### Commits
 

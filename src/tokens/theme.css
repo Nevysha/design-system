@@ -26,6 +26,7 @@
   --ds-warning-subtle: oklch(96.2% 0.030 75);
   --ds-warning-border: oklch(82.6% 0.109 75);
   --ds-warning-text: oklch(50.5% 0.105 75);
+  --ds-overlay: oklch(20% 0.02 308 / 0.45);
 }
 
 /* Dark mode: add class="dark" (or data-theme="dark") on <html> or any container. */
@@ -55,6 +56,7 @@
   --ds-warning-subtle: oklch(24.2% 0.043 75);
   --ds-warning-border: oklch(41.0% 0.081 75);
   --ds-warning-text: oklch(79.0% 0.141 75);
+  --ds-overlay: oklch(0% 0 0 / 0.6);
   color-scheme: dark;
 }
 
@@ -90,6 +92,7 @@
   --color-warning-subtle: var(--ds-warning-subtle);
   --color-warning-border: var(--ds-warning-border);
   --color-warning-text: var(--ds-warning-text);
+  --color-overlay: var(--ds-overlay);
 
   /* Spacing: every p-*, m-*, gap-* is a multiple of this unit (the 4px grid, scaled by density). */
   --spacing: 3px;
